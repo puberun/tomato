@@ -1,1 +1,1 @@
-web: gunicorn tomato1.wsgi
+web: python manage.py runserver
