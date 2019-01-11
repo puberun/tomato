@@ -1,3 +1,5 @@
 django
 mongoengine
 django-cors-headers
+gunicorn
+django-heroku
