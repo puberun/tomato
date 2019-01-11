@@ -1,1 +1,1 @@
-worker: gunicorn tomato1.wsgi --log-file -
+web: gunicorn tomato1.wsgi --log-file -
