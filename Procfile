@@ -1,1 +1,1 @@
-web: python manage.py runserver
+worker: gunicorn tomato1.wsgi --log-file -
