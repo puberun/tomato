@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import mongoengine
+import django_heroku
 
 DBNAME = 'tomato'
 _MONGODB_USER = 'puba469'
@@ -139,3 +140,4 @@ STATICFILES_DIRS=(
 )
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+django_heroku.settings(locals())
