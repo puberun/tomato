@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<style>
+    #myform2{
+        padding:60px;
+    }
+    #login{
+        position: relative;
+        top: 100px;
+        left:30%;
+        width:700px;
+        height: 600px;
+        background-color: white;
+        border-radius: 4px;
+    }
+    #myVideo {
+    position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  transform: translate(-50%, -50%);
+}
+    #msg{
+        color:red;
+    }
+   
+</style>
+<body id="body">
+
+        <video autoplay muted loop id="myVideo">
+                <source src="/static/vid1.mp4" type="video/mp4">
+        </video>
+    
+    
+    <div id="login">
+    <form id="myform2" action="/login" method="post">
+        {% csrf_token %}
+        {% if message != "" %}
+    <h4 id="msg">{{message}}</h4>
+    {% endif %}
+        <div style="background-color: #cb202d;padding: 4px 20px;width: 95%;">
+                <h3 style="color: #F3F3F3;">tomato</h3>
+            </div>     
+        <h3 style="margin-bottom: 30px;font-size: 20px;font-weight: 600;margin-left: 2px;">Login</h3>
+        <input style="width:550px;padding: 15px;margin-bottom: 40px;"   id="username" type="text" name="username" placeholder="username"><br>
+        <input   style="width:550px;padding: 15px;margin-bottom: 40px;" id="password" type="text" name="password" placeholder="password"><br>
+    
+        <button  style="padding:10px 15px;margin-bottom: 40px;"  class="btn btn-success">submit</button><br>
+        <h4>Don't have an account? <a href="/signup"><span>Register here</span></a></h4>
+    
+    </form>
+    </div>
+
+</body>
+<script>
+    $(document).ready(function() {
+  setTimeout(function() { 
+    $("#msg").text("");
+  }, 2000);  
+});
+       
+</script>    
+</html>
+
+

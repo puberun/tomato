@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<style>
+    #filter{
+        background-color: #cb202d;
+        color: white;
+        padding: 6px 12px;
+        border: 1px solid #cb202d;
+        
+    }
+    #filter_div{
+        position: relative;
+    left: 45%;
+    }
+    table{
+		width:70%;
+		max-height:500px;
+        margin-left:15%;
+        margin-top:40px;
+        margin-bottom:40px;
+        background-color: white
+	}
+	table td{
+		padding:10px;
+		margin:10px;
+		border:1px solid #ccc;
+	}
+</style>
+<body style="background-color: #F3F3F3;overflow-x: hidden">
+        <nav class="" style="background-color:#cb202d; padding: 7px;">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a href="/search" style="color:white;font-size: 25px;font-weight: bold" class="navbar-brand" href="#">tomato</a>
+                  </div>
+                  
+                  <ul class=" navbar-nav navbar-right" style="padding-top: 15px;padding-right: 20px;">
+                    <li><a href="/logout" style="color:white;font-size: 20px;font-weight: bold" href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                  </ul>
+                </div>
+              </nav>
+     <h2 style="text-align: center;margin-bottom: 20px;">Here are the resturants you can try!</h2>
+
+     <div id="filter_div">
+     <h4>sort
+     <select id="sort" style="padding:4px 14px;margin-left: 20px;">
+            <option value="cost">cost</option>
+            <option value="rating">rating</option>
+            
+          </select>
+        </h4>
+
+     <h4 >order
+     <select id="order" style="padding:4px 14px;margin-left: 10px;">
+            <option value="asc">asc</option>
+            <option value="dsc">dsc</option>
+            
+          </select>
+        </h4>
+        <button id="filter" class="btn btn-success">Apply filter</button>
+    </div>
+
+
+   <!-- <h2 style="text-align: center">These are the resturants by <span style="color: red">{{cuisine_name}}</span> cuisine <span style="color: red"> {{cat_name}}</span> category <span style="color: red">{{res_type}}</span> res_type!</h2> -->
+   <hr>
+   <form id="myform2" action="/restuarant" target="_blank" method="post">
+    <input   id="res_det" type="text" name="res_det"  style="display: none;">
+
+    {% csrf_token %}
+   <div id="box" style="">
+
+
+    </div>
+    </form>
+
+
+
+</body>
+
+<script>
+
+var url1 = "https://developers.zomato.com/api/v2.1/search?entity_id=4&entity_type=city&cuisines={{cuisine_id}}&category={{cat_id}}&establishment_type={{res_id}}";
+// var url1 = "https://developers.zomato.com/api/v2.1/search?entity_id=4&entity_type=city&cuisines={{cuisine_id}}&category={{cat_id}}";
+
+var settings = {
+   
+  "url": url1,
+  "method": "GET",
+  "headers": {
+    "user-key": "3bda01cb295ef2931ca9dcdd72bee31a",
+    "accept": "application/json",
+  },
+  "processData": false,
+  "contentType": false,
+  "mimeType": "application/x-www-form-urlencoded; charset=UTF-8",
+}
+
+$.ajax(settings).done(function (response) {
+    var resp = $.parseJSON(response);
+
+  console.log(resp.results_found);
+
+
+  mytable = $('<table></table>').attr({ id: "basicTable" });
+	
+	var tr = [];
+    for (var i = 0; i < 1; i++) {
+		var row = $('<tr></tr>').attr({ class: ["class2", "class3"].join(' ') }).appendTo(mytable);
+		
+			$('<td></td>').text("").appendTo(row); 
+            $('<td></td>').text("Restaurant Name").appendTo(row); 
+            $('<td></td>').text("Location").appendTo(row); 
+
+            $('<td></td>').text("Average cost").appendTo(row); 
+
+			$('<td></td>').text("Rating").appendTo(row); 
+            $('<td></td>').text("Restaurant Link").appendTo(row); 
+
+
+
+		
+		 		 
+	}
+	for (var i = 0; i < resp.restaurants.length; i++) {
+		var row = $('<tr></tr>').css({'cursor':'pointer'}).attr({ class: ["res_row", "class2", "class3"].join(' ') , id:resp.restaurants[i].restaurant.id}).appendTo(mytable);
+		
+			$('<td></td>').css({'background':"url("+resp.restaurants[i].restaurant.thumb+")", 'cursor':'pointer','width':'140px','height':'80px'}).attr({id:"zomato"}).appendTo(row); 
+
+         
+            $('<td></td>').text(resp.restaurants[i].restaurant.name).css({'font-size':'15px'}).appendTo(row); 
+            $('<td></td>').text(resp.restaurants[i].restaurant.location.locality).css({'font-size':'15px'}).appendTo(row); 
+
+            $('<td></td>').text('₹'+resp.restaurants[i].restaurant.average_cost_for_two).css({'font-size':'15px'}).appendTo(row); 
+
+			$('<td></td>').text(resp.restaurants[i].restaurant.user_rating.aggregate_rating).css({'font-size':'15px','width':'30px','background-color':'#'+resp.restaurants[i].restaurant.user_rating.rating_color}).appendTo(row); 
+            var x1 = $('<td></td>');
+            var y1 = $('<a></a>').attr({'href':resp.restaurants[i].restaurant.url,'target':'_blank'}).css({'position':'relative','top':'25px','font-size':'15px','color':'red','margin-left':'20px','margin-top':'15px','width':'200px'}).appendTo(x1);
+		    x1.text("Click here").appendTo(row); 
+
+	}
+	console.log("TTTTT:"+mytable.html());
+	mytable.appendTo("#box");	
+});
+
+
+$(document).on('click', '.res_row', function(){
+    $("#res_det").val($(this).attr('id'))
+
+    $('#myform2').submit();
+
+    
+
+  });
+  $(document).on('click', '#filter', function(){
+    
+      var sort = $("#sort").val();
+      var order = $("#order").val();
+      var url1 = "https://developers.zomato.com/api/v2.1/search?entity_id=4&entity_type=city&cuisines={{cuisine_id}}&category={{cat_id}}&establishment_type={{res_id}}&sort="+sort+"&order="+order;
+
+var settings = {
+   
+  "url": url1,
+  "method": "GET",
+  "headers": {
+    "user-key": "3bda01cb295ef2931ca9dcdd72bee31a",
+    "accept": "application/json",
+  },
+  "processData": false,
+  "contentType": false,
+  "mimeType": "application/x-www-form-urlencoded; charset=UTF-8",
+}
+
+$.ajax(settings).done(function (response) {
+    var resp = $.parseJSON(response);
+
+  console.log(resp.results_found);
+
+
+  mytable = $('<table></table>').attr({ id: "basicTable" });
+	
+	var tr = [];
+    for (var i = 0; i < 1; i++) {
+		var row = $('<tr></tr>').attr({ class: ["class2", "class3"].join(' ') }).appendTo(mytable);
+		
+			$('<td></td>').text("").appendTo(row); 
+            $('<td></td>').text("Restaurant Name").appendTo(row); 
+            $('<td></td>').text("Location").appendTo(row); 
+
+            $('<td></td>').text("Average cost").appendTo(row); 
+
+			$('<td></td>').text("Rating").appendTo(row); 
+            $('<td></td>').text("Restaurant Link").appendTo(row); 
+
+
+
+		
+		 		 
+	}
+	for (var i = 0; i < resp.restaurants.length; i++) {
+		var row = $('<tr></tr>').css({'cursor':'pointer'}).attr({ class: ["res_row", "class2", "class3"].join(' ') , id:resp.restaurants[i].restaurant.id}).appendTo(mytable);
+		
+			$('<td></td>').css({'background':"url("+resp.restaurants[i].restaurant.thumb+")", 'cursor':'pointer','width':'140px','height':'80px'}).attr({id:"zomato"}).appendTo(row); 
+
+         
+            $('<td></td>').text(resp.restaurants[i].restaurant.name).css({'font-size':'15px'}).appendTo(row); 
+            $('<td></td>').text(resp.restaurants[i].restaurant.location.locality).css({'font-size':'15px'}).appendTo(row); 
+
+            $('<td></td>').text('₹'+resp.restaurants[i].restaurant.average_cost_for_two).css({'font-size':'15px'}).appendTo(row); 
+
+			$('<td></td>').text(resp.restaurants[i].restaurant.user_rating.aggregate_rating).css({'font-size':'15px','width':'30px','background-color':'#'+resp.restaurants[i].restaurant.user_rating.rating_color}).appendTo(row); 
+            var x1 = $('<td></td>');
+            var y1 = $('<a></a>').attr({'href':resp.restaurants[i].restaurant.url,'target':'_blank'}).css({'position':'relative','top':'25px','font-size':'15px','color':'red','margin-left':'20px','margin-top':'15px','width':'200px'}).appendTo(x1);
+		    x1.text("Click here").appendTo(row); 
+
+	}
+	console.log("TTTTT:"+mytable.html());
+    $("#box").text("")
+	mytable.appendTo("#box");	
+});
+
+    
+
+  });
+  
+  
+</script>

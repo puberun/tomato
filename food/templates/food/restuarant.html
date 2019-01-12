@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css" rel="stylesheet" type="text/css" />
+</head>
+<style>
+   #img1{
+       width:100%;
+       height: 100%;
+       
+   }
+   #name{
+       font-size: 16px;
+       font-weight: 600;
+       cursor: pointer;
+       color:#cb202d;
+       padding: 15px;
+   }
+   #ip,#ip2,#ip3{
+    cursor: text;
+    padding: 10px;
+    border-radius: 4px;
+    width: 96%;
+    margin:1% 2%;
+   }
+   #profile_pic{
+       border-radius: 50%;
+       width:50px;
+       height:50px;
+   }
+   #cui{
+       color:#cb202d;
+   }
+
+</style>
+<body id="body" style="background: #F3F3F3;overflow-x: hidden">
+        <nav class="" style="background-color:#cb202d; padding: 7px;">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a href="/search" style="color:white;font-size: 25px;font-weight: bold" class="navbar-brand" href="#">tomato</a>
+                  </div>
+                  
+                  <ul class=" navbar-nav navbar-right" style="padding-top: 15px;padding-right: 20px;">
+                    <li><a href="/logout" style="color:white;font-size: 20px;font-weight: bold" href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                  </ul>
+                </div>
+              </nav>
+    <div>
+
+    <div class="row container" style="margin-left: 10%;margin-top: 4%;border: 3px solid #cb202d;border-radius: 4px;padding:15px;width:80%;background: white">
+        <div class="col-sm-7" style="height: 400px;">
+            <img id="img1">
+        </div>
+        <div class="col-sm-5" style="height:400px">
+            <div style="border: 3px solid  #cb202d;border-radius:4px;text-align: center;height: 40%;width: 100%;">
+                <h4 style="color: #B9BFC7;font-size: 15px;font-weight: 400;line-height: normal;padding-top:20px;">ORDER FOOD ONLINE FROM</h4>
+                
+
+                <h3 id="name"></h3>
+
+            </div>
+            <div style="margin-top: 5px; border: 3px solid  #cb202d;border-radius:4px;text-align: center;height: 60%;width: 100%;background:white;color: black">
+                <h3 style="padding-top: 30px;color: #cb202d">Our Address:</h3><br>
+                <h3 style="padding: 30px;color: #cb202d" id="add"></h3>
+            </div>
+            
+        </div>
+        
+
+    </div>
+    <div class="row">
+    <div class="col-sm-6 " style="border: 3px solid  #cb202d; margin-left: 10.8%;margin-top: 1%;border-radius: 4px; padding:2px;width:45%;background: white">
+            <h3 style="padding: 5px;text-align: center"><span style="color: #cb202d;">Cuisines: </span><span id="cui"></span></h3>
+            </div>
+
+            <div class="col-sm-6 " style="margin-left: 20px;margin-top: 1%;border-radius: 4px;padding:5px;width:32%;background: white;border: 3px solid #cb202d;">
+                    <a target="_blank" id="menu" style="color: #cb202d;"><h3 style="padding: 2px;text-align: center"><span>CLICK HERE FOR FULL MENU </span><span></span></h3></a>
+                    </div>
+
+             </div>
+
+    <div class="row container " style="margin-left: 10%;margin-top: 1%;border-radius: 4px;padding:2px;width:80%;background: white">
+         <h3 style="padding: 2px;"><span id="myrate" style="color:#cb202d;display: inline-block;border: 3px solid #cb202d;padding: 5px;width:28%;">Rating: </span><span style="color:#cb202d;display: inline-block;border: 3px solid #cb202d;padding: 5px;margin-left:20px;width:28%;" id="rate">Hygene:</span><span style="color:#cb202d;display: inline-block;border: 3px solid #cb202d;margin-left:20px;width:28%;padding: 5px;" id="vote">Total vote</span><span style="font-size: 26px; display: inline-block;margin-left:20px;width:80px;padding: 5px 10px;color: #cb202d;border-radius: 4px;" id="star">Star</span></h3>
+    </div>
+                <div class="row container " style="margin-left: 10%;margin-top: 1%;padding:2px;width:80%;background: white;border-radius: 4px;">
+                      <h4 style="text-align: left;font-size: 18px;margin:2%;font-weight: 600">Write a Review</h4>
+
+
+                      <form id="myform2" action="/restuarant" method="post">
+                        {% csrf_token %}
+
+                      <div class="ui left icon fluid large input" style="float: none;">
+                        <input name="rating_text" id="ip" type="text" placeholder="How was your experience with the food!(Very Briefly)" required>
+                        <i style="margin-left: 2.5%;" class="write icon"></i>
+                    </div>
+
+                      <div class="ui left icon fluid large input" style="float: none;">
+                            <input name="review_text" id="ip2" type="text" placeholder="Help other foodies by sharing your detailed review!" required>
+                            <i style="margin-left: 2.5%;" class="write icon"></i>
+                        </div>
+
+                        <div class="ui left icon fluid large input" style="float: none;">
+                            <input name="rating" id="ip3" type="number" step="any" min="1" max="5" placeholder="Rate the restaurant from 1 to 5!" required>
+                            <i style="margin-left: 2.5%;" class="write icon"></i>
+                        </div>
+                        
+                        <button class="btn btn-success rev" style="font-size:16px;padding:8px 15px;background-color: #099E44;margin-top: 14px;margin-bottom: 14px;margin-left: 2%;">Add Your Review</button>
+                        <input   id="res_id" type="text" name="res_id"  style="display: none;">
+
+
+
+                        </form>
+              
+                    </div>
+                <div class="row container " style="margin-left: 10%;margin-top: 1%;padding:2px;width:80%;background: white;border-radius: 4px;">
+                        <h4 style="text-align: left;font-size: 20px;margin:2%;font-weight: 600">Reviews</h4><hr style="color: #F3F3F3">
+                        <div id="myreviews">
+
+
+
+                        </div>
+                        <div id="zomatoreviews">
+                            {% for i in reviews %}
+                            {% if res_det == i.res_id %}
+                            <h4 style="text-align: left;font-size: 16px;margin:1.5%;"><span style="display: inline-block"><img style="width:60px;height:50px;" src="https://b.zmtcdn.com/data/user_profile_pictures/d49/3e1d8dccf49710e02f6de8999da0ed49.jpg?fit=around%7C100%3A100&crop=100%3A100%3B%2A%2C%2A" id="profile_pic"></span><span style="margin-left: 30px;">{{i.username}}</span></span></h4><h4 style="text-align: left;font-size: 14px;margin:2%;font-weight: 600"><span>RATED</span><span style="margin-left:20px;padding:10px 16px;border-radius:6px;background-color: #{{i.rating_color}};color:white">{{i.rating}}</span><span style="margin-left:20px;font-size: 16px;">{{i.rating_text}}</span></h4><h4 style="text-align: left;font-size: 16px;margin:2%;color:F3F3F3;font-weight: 100">{{i.review_text}}</h4><hr style="color: #F3F3F3">
+                            {% endif %}
+                            {% endfor %}
+
+
+                        </div>
+
+                        
+
+                  </div>
+
+        </div>
+    </div>
+    </div>
+   
+    
+<div style="padding: 30px;"></div>
+</body>
+<script>
+    
+
+      $(document).ready(function() {
+  setTimeout(function() { 
+    $(document).on('click', '.rev', function(){
+    console.log("clicked")
+    location.reload();
+
+    
+
+  });  }, 2000);  
+});
+    
+
+        var url1 = "https://developers.zomato.com/api/v2.1/restaurant?res_id={{res_det}}";
+        var url2 = "https://developers.zomato.com/api/v2.1/reviews?res_id={{res_det}}";
+
+var settings = {
+   
+  "url": url1,
+  "method": "GET",
+  "headers": {
+    "user-key": "3bda01cb295ef2931ca9dcdd72bee31a",
+    "accept": "application/json",
+  },
+  "processData": false,
+  "contentType": false,
+  "mimeType": "application/x-www-form-urlencoded; charset=UTF-8",
+}
+var settings2 = {
+   
+   "url": url2,
+   "method": "GET",
+   "headers": {
+     "user-key": "3bda01cb295ef2931ca9dcdd72bee31a",
+     "accept": "application/json",
+   },
+   "processData": false,
+   "contentType": false,
+   "mimeType": "application/x-www-form-urlencoded; charset=UTF-8",
+ }
+
+ var resp1 ;
+
+$.ajax(settings).done(function (response) {
+    var resp = $.parseJSON(response);
+    resp1 = resp;
+    $("#img1").attr('src',resp.featured_image)
+    $("#name").text(resp.name)
+    $("#cui").text(resp.cuisines)
+    $("#star").text(resp.user_rating.aggregate_rating)
+    $("#myrate").text("Rating: "+resp.user_rating.aggregate_rating)
+
+
+    $("#rate").text("Hygene: "+resp.user_rating.rating_text)
+    $("#vote").text(resp.user_rating.votes+" votes")
+
+
+    $("#menu").attr('href',resp.menu_url)
+
+
+    $("#add").text(resp.location.address)
+    $("#star").css('background-color','#'+resp.user_rating.rating_color)
+    $("#star").css('color','white')
+    $("#res_id").val({{res_det}})
+
+    // For rating
+                $.ajax(settings2).done(function (response) {
+                var resp2 = $.parseJSON(response);
+
+
+                for(var i=0;i<resp2.user_reviews.length;i++){
+                var elem = '<h4 style="text-align: left;font-size: 16px;margin:1.5%;"><span style="display: inline-block"><img style="width:60px;height:50px;" src='+resp2.user_reviews[i].review.user.profile_image+'id="profile_pic"></span><span style="margin-left: 30px;">'+resp2.user_reviews[i].review.user.name+'</span></span></h4><h4 style="text-align: left;font-size: 14px;margin:2%;font-weight: 600"><span>RATED</span><span style="margin-left:20px;padding:10px 16px;border-radius:6px;background-color: #'+resp2.user_reviews[i].review.rating_color+';color:white">'+resp2.user_reviews[i].review.rating+'</span><span style="margin-left:20px;font-size: 16px;">'+resp2.user_reviews[i].review.rating_text+'</span></h4><h4 style="text-align: left;font-size: 16px;margin:2%;color:F3F3F3;font-weight: 100">'+resp2.user_reviews[i].review.review_text+'</h4><hr style="color: #F3F3F3">';
+                $(elem).appendTo($("#myreviews"));
+                }
+
+                        })
+
+
+
+
+})
+</script>    
+</html>

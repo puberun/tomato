@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<style>
+
+
+.arrows {
+	width: 60px;
+	height: 72px;
+	position: absolute;
+	left: 72%;
+	margin-left: -30px;
+	bottom: 20px;
+    cursor: pointer;
+}
+
+.arrows path {
+	stroke: #cb202d;
+	fill: transparent;
+	stroke-width: 1px;	
+	animation: arrow 2s infinite;
+	-webkit-animation: arrow 2s infinite; 
+}
+
+@keyframes arrow
+{
+0% {opacity:0}
+40% {opacity:1}
+80% {opacity:0}
+100% {opacity:0}
+}
+
+@-webkit-keyframes arrow /*Safari and Chrome*/
+{
+0% {opacity:0}
+40% {opacity:1}
+80% {opacity:0}
+100% {opacity:0}
+}
+
+.arrows path.a1 {
+	animation-delay:-1s;
+	-webkit-animation-delay:-1s; /* Safari 和 Chrome */
+}
+
+.arrows path.a2 {
+	animation-delay:-0.5s;
+	-webkit-animation-delay:-0.5s; /* Safari 和 Chrome */
+}
+
+.arrows path.a3 {	
+	animation-delay:0s;
+	-webkit-animation-delay:0s; /* Safari 和 Chrome */
+}
+
+
+
+
+    #cuisine{
+        width: 420px;
+        height: 300px;
+        margin: 20px;
+        cursor: pointer;
+        position: relative;
+        left: 30%;
+    }
+    
+    #res{
+        width: 420px;
+        height: 300px;
+        margin: 20px;
+        cursor: pointer;
+        position: relative;
+        left: 10%;
+    }
+    
+    #cat{
+        width: 420px;
+        height: 300px;
+        margin: 20px;
+        cursor: pointer;
+        position: relative;
+        right: 10%;
+
+
+        
+    }
+    #cuisines{
+        width: 420px;
+        height: 350px;
+        margin: 20px;
+        cursor: pointer;
+        overflow-y: scroll;
+        display: none;
+        position: relative;
+        left: 30%;
+        padding: 20px;
+        background-color: #F3F3F3;
+    }
+    
+    #ress{
+        width: 420px;
+        height: 350px;
+        margin: 20px;
+        cursor: pointer;
+        display: none;
+        overflow-y: scroll;
+        position: relative;
+        left: 10%;
+        padding: 20px;
+        background-color: #F3F3F3;
+
+
+
+    }
+    
+    #cats{
+        width: 420px;
+        height: 350px;
+        margin: 20px;
+        cursor: pointer;
+        display: none;
+        overflow-y: scroll;
+        position: relative;
+        right: 10%;
+        padding: 20px;
+        background-color: #F3F3F3;
+
+
+
+
+    }
+    #tagline{
+        font-size: 25px;
+        margin: 40px;
+        text-align: center;
+    }
+    .cui,.cui1,.cui2{
+        border: 1px solid #cb202d;
+        color: #cb202d;
+        font-size: 14px;
+        padding: 10px;
+        background-color: white;
+
+    }
+
+    #bb{
+        width:300px;
+        border: 1px solid #cb202d; 
+        background-color: #cb202d;
+        color: white;
+        font-size: 18px;
+         margin: 40px;
+          position:absolute;
+          top:470px;
+          left: 40%;
+          padding: 20px 30px;
+    }
+
+</style>
+<body id="body" style="overflow-x: hidden">
+        <nav class="" style="background-color:#cb202d; padding: 7px;">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a href="/search" style="color:white;font-size: 25px;font-weight: bold" class="navbar-brand" href="#">tomato</a>
+                  </div>
+                  
+                  <ul class=" navbar-nav navbar-right" style="padding-top: 15px;padding-right: 20px;">
+                    <li><a href="/logout" style="color:white;font-size: 20px;font-weight: bold" href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                  </ul>
+                </div>
+              </nav>
+        <form id="myform2" action="/search" method="post">
+            {% csrf_token %}
+            <input   id="cuisine_name" type="text" name="cui_name"  style="display: none;">
+            <input   id="cuisine_id" type="text" name="cui_id"  style="display: none;">
+            <input   id="res_type" type="text" name="res_type"  style="display: none;">
+            <input   id="res_id" type="text" name="res_id"  style="display: none;">
+
+            <input   id="cat_name" type="text" name="cat_name"  style="display: none;">
+            <input   id="cat_id" type="text" name="cat_id"  style="display: none;">
+
+<div class="row">
+    <h4 id="tagline">Hello <span style="color: #cb202d">{{username}}</span> let's find yummy food nearby!</h4>
+    <div class="col-sm-4" style="">
+    <div  id="cuisine" style="background-size:cover;background-image: url('/static/pic0.jpg')"><span style="position: relative;left: 35%;top:45%;font-size: 20px;"></span></div>
+    
+    <svg class="arrows">
+            <path class="a1" d="M0 0 L30 32 L60 0"></path>
+            <path class="a2" d="M0 20 L30 52 L60 20"></path>
+            <path class="a3" d="M0 40 L30 72 L60 40"></path>
+        </svg>
+
+    <div id="cuisines">
+            <h3 class="cui" id="6">Afghani</h3>
+            <h3 class="cui" id="152">African</h3>
+            <h3 class="cui" id="1">American</h3>
+            <h3 class="cui" id="2">Andhra</h3>
+            <h3 class="cui" id="4">Arabian</h3>
+            <h3 class="cui" id="3">Asian</h3>
+            <h3 class="cui" id="401">Asian Fusion</h3>
+            <h3 class="cui" id="165">Assamese</h3>
+            <h3 class="cui" id="131">Australian</h3>
+            <h3 class="cui" id="292">Awadhi</h3>
+            <h3 class="cui" id="193">BBQ</h3>
+            <h3 class="cui" id="5">Bakery</h3>
+            <h3 class="cui" id="145">Bangladeshi</h3>
+            <h3 class="cui" id="227">Bar Food</h3>
+            <h3 class="cui" id="132">Belgian</h3>
+            <h3 class="cui" id="10">Bengali</h3>
+            <h3 class="cui" id="270">Beverages</h3>
+            <h3 class="cui" id="1013">Bihari</h3>
+            <h3 class="cui" id="7">Biryani</h3>
+            <h3 class="cui" id="1032">Bohri</h3>
+            <h3 class="cui" id="133">British</h3>
+            <h3 class="cui" id="247">Bubble Tea</h3>
+            <h3 class="cui" id="168">Burger</h3>
+            <h3 class="cui" id="22">Burmese</h3>
+            <h3 class="cui" id="30">Cafe</h3>
+            <h3 class="cui" id="1039">Cafe Food</h3>
+            <h3 class="cui" id="121">Cantonese</h3>
+            <h3 class="cui" id="994">Charcoal Chicken</h3>
+            <h3 class="cui" id="18">Chettinad</h3>
+            <h3 class="cui" id="25">Chinese</h3>
+            <h3 class="cui" id="1040">Coffee</h3>
+            <h3 class="cui" id="161">Coffee and Tea</h3>
+            <h3 class="cui" id="144">Contemporary</h3>
+            <h3 class="cui" id="35">Continental</h3>
+            <h3 class="cui" id="100">Desserts</h3>
+            <h3 class="cui" id="268">Drinks Only</h3>
+            <h3 class="cui" id="985">Dumplings</h3>
+            <h3 class="cui" id="38">European</h3>
+            <h3 class="cui" id="40">Fast Food</h3>
+            <h3 class="cui" id="271">Finger Food</h3>
+            <h3 class="cui" id="45">French</h3>
+            <h3 class="cui" id="134">German</h3>
+            <h3 class="cui" id="47">Goan</h3>
+            <h3 class="cui" id="156">Greek</h3>
+            <h3 class="cui" id="181">Grill</h3>
+            <h3 class="cui" id="48">Gujarati</h3>
+            <h3 class="cui" id="143">Healthy Food</h3>
+            <h3 class="cui" id="1026">Hot dogs</h3>
+            <h3 class="cui" id="49">Hyderabadi</h3>
+            <h3 class="cui" id="233">Ice Cream</h3>
+            <h3 class="cui" id="148">Indian</h3>
+            <h3 class="cui" id="114">Indonesian</h3>
+            <h3 class="cui" id="140">Iranian</h3>
+            <h3 class="cui" id="218">Israeli</h3>
+            <h3 class="cui" id="55">Italian</h3>
+            <h3 class="cui" id="60">Japanese</h3>
+            <h3 class="cui" id="265">Jewish</h3>
+            <h3 class="cui" id="164">Juices</h3>
+            <h3 class="cui" id="65">Kashmiri</h3>
+            <h3 class="cui" id="178">Kebab</h3>
+            <h3 class="cui" id="62">Kerala</h3>
+            <h3 class="cui" id="63">Konkan</h3>
+            <h3 class="cui" id="67">Korean</h3>
+            <h3 class="cui" id="66">Lebanese</h3>
+            <h3 class="cui" id="157">Lucknowi</h3>
+            <h3 class="cui" id="102">Maharashtrian</h3>
+            <h3 class="cui" id="69">Malaysian</h3>
+            <h3 class="cui" id="71">Malwani</h3>
+            <h3 class="cui" id="72">Mangalorean</h3>
+            <h3 class="cui" id="70">Mediterranean</h3>
+            <h3 class="cui" id="73">Mexican</h3>
+            <h3 class="cui" id="137">Middle Eastern</h3>
+            <h3 class="cui" id="1015">Mithai</h3>
+            <h3 class="cui" id="1018">Modern Indian</h3>
+            <h3 class="cui" id="1051">Momos</h3>
+            <h3 class="cui" id="74">Mongolian</h3>
+            <h3 class="cui" id="75">Mughlai</h3>
+            <h3 class="cui" id="166">Naga</h3>
+            <h3 class="cui" id="117">Nepalese</h3>
+            <h3 class="cui" id="231">North Eastern</h3>
+            <h3 class="cui" id="50">North Indian</h3>
+            <h3 class="cui" id="278">Oriental</h3>
+            <h3 class="cui" id="269">Oriya</h3>
+            <h3 class="cui" id="1048">Paan</h3>
+            <h3 class="cui" id="209">Pan Asian</h3>
+            <h3 class="cui" id="290">Parsi</h3>
+            <h3 class="cui" id="82">Pizza</h3>
+            <h3 class="cui" id="87">Portuguese</h3>
+            <h3 class="cui" id="88">Rajasthani</h3>
+            <h3 class="cui" id="27">Raw Meats</h3>
+            <h3 class="cui" id="1005">Roast Chicken</h3>
+            <h3 class="cui" id="1023">Rolls</h3>
+            <h3 class="cui" id="84">Russian</h3>
+            <h3 class="cui" id="998">Salad</h3>
+            <h3 class="cui" id="304">Sandwich</h3>
+            <h3 class="cui" id="83">Seafood</h3>
+            <h3 class="cui" id="993">Sindhi</h3>
+            <h3 class="cui" id="119">Singaporean</h3>
+            <h3 class="cui" id="461">Soul Food</h3>
+            <h3 class="cui" id="972">South American</h3>
+            <h3 class="cui" id="85">South Indian</h3>
+            <h3 class="cui" id="89">Spanish</h3>
+            <h3 class="cui" id="86">Sri Lankan</h3>
+            <h3 class="cui" id="141">Steak</h3>
+            <h3 class="cui" id="90">Street Food</h3>
+            <h3 class="cui" id="177">Sushi</h3>
+            <h3 class="cui" id="163">Tea</h3>
+            <h3 class="cui" id="150">Tex-Mex</h3>
+            <h3 class="cui" id="95">Thai</h3>
+            <h3 class="cui" id="93">Tibetan</h3>
+            <h3 class="cui" id="142">Turkish</h3>
+            <h3 class="cui" id="1034">Vegan</h3>
+            <h3 class="cui" id="308">Vegetarian</h3>
+            <h3 class="cui" id="99">Vietnamese</h3>
+            <h3 class="cui" id="1024">Wraps</h3>
+
+
+
+    </div>
+    </div>
+    
+
+        
+    
+        
+       
+    <div class="col-sm-4">
+    <div  id="res" style="background-size:cover;background-image: url('/static/pic2.jpg')"><span style="position: relative;left: 35%;top:45%;font-size: 20px;"></span></div>
+    <svg class="arrows" style="left: 55%;">
+            <path class="a1" d="M0 0 L30 32 L60 0"></path>
+            <path class="a2" d="M0 20 L30 52 L60 20"></path>
+            <path class="a3" d="M0 40 L30 72 L60 40"></path>
+        </svg>
+    <div id="ress">
+            <h3 class="cui1" id="16">Casual Dining</h3>
+            <h3 class="cui1" id="18">Fine Dining</h3>
+            <h3 class="cui1" id="21">Quick Bites</h3>
+            <h3 class="cui1" id="31">Bakery</h3>
+            <h3 class="cui1" id="23">Dessert Parlour</h3>
+            <h3 class="cui1" id="5">Lounge</h3>
+            <h3 class="cui1" id="7">Bar</h3>
+            <h3 class="cui1" id="1">Café</h3>
+            <h3 class="cui1" id="20">Food Court</h3>
+            <h3 class="cui1" id="6">Pub</h3>
+            <h3 class="cui1" id="8">Club</h3>
+            <h3 class="cui1" id="291">Sweet Shop</h3>
+            <h3 class="cui1" id="4">Kiosk</h3>
+            <h3 class="cui1" id="161">Microbrewery</h3>
+            <h3 class="cui1" id="304">Mess</h3>
+            <h3 class="cui1" id="51">Butcher Shop</h3>
+            <h3 class="cui1" id="41">Beverage Shop</h3>
+            <h3 class="cui1" id="61">Dhaba</h3>
+            <h3 class="cui1" id="303">Irani Cafe</h3>
+            <h3 class="cui1" id="81">Food Truck</h3>
+            <h3 class="cui1" id="191">Confectionery</h3>
+            <h3 class="cui1" id="307">Bhojanalya</h3>
+            <h3 class="cui1" id="131">Pop up</h3>            
+    </div>
+    </div>
+
+    <div class="col-sm-4">
+    <div  id="cat" style="background-size:cover;background-image: url('/static/pic1.jpg')"><span style="position: relative;left: 35%;top:45%;font-size: 20px;"></span></div>
+    <svg class="arrows" style="left: 35%;">
+            <path class="a1" d="M0 0 L30 32 L60 0"></path>
+            <path class="a2" d="M0 20 L30 52 L60 20"></path>
+            <path class="a3" d="M0 40 L30 72 L60 40"></path>
+        </svg>
+    <div id="cats">
+            <h3 class="cui2" id="1">Delivery</h3>
+            <h3 class="cui2" id="2">Dine-out</h3>
+            <h3 class="cui2" id="3">Nightlife</h3>
+            <h3 class="cui2" id="4">Catching-up</h3>
+            <h3 class="cui2" id="5">Takeaway</h3>
+            <h3 class="cui2" id="6">Cafes</h3>
+            <h3 class="cui2" id="7">Daily Menus</h3>
+            <h3 class="cui2" id="8">Breakfast</h3>
+            <h3 class="cui2" id="9">Lunch</h3>
+            <h3 class="cui2" id="10">Dinner</h3>
+            <h3 class="cui2" id="11">Pubs & Bars</h3>
+            <h3 class="cui2" id="12">Pocket Friendly Delivery</h3>
+            <h3 class="cui2" id="13">Clubs & Lounges</h3>
+    </div>
+    </div>
+    <button id="bb" class="btn btn-success">LET'S GO!</button>
+</div>
+
+</form>
+
+</body>
+<script>
+        var flag = 0;
+        var input = document.getElementById("myInput");
+        var body = document.getElementById("body1");
+    
+        
+        $("#cuisine").click(function(){
+            
+            $('#cuisines').css("display","block");
+            $('#bb').css("top","840px");
+
+    
+    
+    });
+    $("#res").click(function(){
+            
+            $('#ress').css("display","block");
+            $('#bb').css("top","840px");
+
+    
+    
+    });
+    $("#cat").click(function(){
+            
+            $('#cats').css("display","block");
+            $('#bb').css("top","840px");
+
+    
+    
+    });
+    $(".cui").click(function(){
+        $("#cuisine_id").val($(this).attr('id'))
+        $("#cuisine_name").val($(this).text())
+        $(".cui").css("border","1px solid #cb202d");
+        $(".cui").css("background-color","white"); 
+           $(".cui").css("color","red"); 
+           $(this).css("border","1px solid #cb202d"); 
+           $(this).css("background-color","#cb202d"); 
+           $(this).css("color","white"); 
+
+
+            
+    
+    
+        });
+        $(".cui1").click(function(){
+        $("#res_type").val($(this).text())
+        $("#res_id").val($(this).attr('id'))
+
+ $(".cui1").css("background-color","white"); 
+           $(".cui1").css("color","red");
+        $(".cui1").css("border","1px solid #cb202d");
+        $(this).css("background-color","#cb202d"); 
+           $(this).css("color","white");            
+    
+    
+        });
+        $(".cui2").click(function(){
+        $("#cat_id").val($(this).attr('id'))
+        $("#cat_name").val($(this).text())
+        $(".cui2").css("background-color","white"); 
+           $(".cui2").css("color","red");
+        $(".cui2").css("border","1px solid #cb202d");
+        $(this).css("background-color","#cb202d"); 
+           $(this).css("color","white");            
+    
+    
+        });
+</script>    
+</html>
